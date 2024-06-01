@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="100dp"
+        android:translationX="-20dp"
+        android:translationY="12dp"
+        android:backgroundTint="#FFD700">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/img_2"
+            android:translationY="-5dp"
+            android:translationX="6dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="100dp"
+        android:translationX="288dp"
+        android:translationY="-20dp"
+        android:backgroundTint="#FFD700">
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/img_3"
+            android:translationY="20dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="295dp"
+        android:layout_height="320dp"
+        app:cardCornerRadius="350dp"
+        android:translationX="70dp"
+        android:translationY="110dp"
+        android:backgroundTint="#007EF2">
+        <ImageView
+            android:layout_width="340dp"
+            android:layout_height="330dp"
+            android:src="@drawable/img_4"
+            android:translationX="-27dp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_extrabold"
+        android:gravity="center"
+        android:text="Mulailah Petualangan Anda di Bandung"
+        android:textColor="#007EF2"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:translationX="45dp"
+        android:translationY="450dp" />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Pintu menuju pengalaman wisata yang tak terlupakan. Temukan kenyamanan, keindahan, dan petualangan di Bandung."
+        android:gravity="center"
+        android:translationX="60dp"
+        android:translationY="520dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/nunito"
+        android:textSize="14sp"
+        android:textColor="#000000"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:translationY="600dp"
+        android:translationX="60dp"
+        android:text="Mulai Menjelajah"
+        android:textSize="20sp"
+        android:backgroundTint="#007EF2"
+        android:drawableEnd="@drawable/welcom_button_icon"
+        android:gravity="center"/>
+
+</RelativeLayout>

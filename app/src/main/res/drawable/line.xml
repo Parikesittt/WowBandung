@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:viewportWidth="63" android:viewportHeight="1">
+    <svg width="63" height="1" viewBox="0 0 63 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6.00418e-10" y1="0.5" x2="63" y2="0.5" stroke="black" stroke-opacity="0.25"/>
+    </svg>
+
+</vector>
