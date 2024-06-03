@@ -6,10 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FavoriteActivity">
-
-
-<androidx.appcompat.widget.Toolbar
+    tools:context=".EditWisataActivity">
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
@@ -23,7 +21,7 @@
             android:id="@+id/appbarItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Tambah"
+            app:title="Edit"
             app:titleCentered="true"
             app:titleTextColor="#007EF2" />
     </androidx.appcompat.widget.Toolbar>
@@ -160,10 +158,11 @@
     <Button
         android:layout_width="283dp"
         android:layout_height="50dp"
-        android:text="Tambah"
+        android:text="Edit"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="15sp"
         android:backgroundTint="#171F1D"
         app:cornerRadius="10dp"
         android:layout_gravity="center"/>
+
 </LinearLayout>
