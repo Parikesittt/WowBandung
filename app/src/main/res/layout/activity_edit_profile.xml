@@ -62,7 +62,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:textSize="14sp"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEditTextLayout"
+            android:id="@+id/nameEditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -71,7 +71,7 @@
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+                android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +103,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:textSize="14sp"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEditTextLayout"
+            android:id="@+id/numberEditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -112,7 +112,7 @@
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+                android:id="@+id/numberEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"/>
@@ -124,7 +124,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:textSize="14sp"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEditTextLayout"
+            android:id="@+id/passEditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -133,7 +133,7 @@
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+                android:id="@+id/passEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
