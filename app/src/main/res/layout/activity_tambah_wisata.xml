@@ -38,28 +38,26 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Judul"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/judulEditText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="360dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/judulText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text">
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -67,18 +65,16 @@
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Dekripsi"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/DeskripsiEditText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="360dp"
-            android:layout_height="156dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
@@ -87,8 +83,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/DeskripsiText"
                 android:layout_width="match_parent"
-                android:layout_height="137dp"
-                android:inputType="text">
+                android:layout_height="110dp"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -96,28 +92,26 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Alamat"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/alamatEditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="360dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/alamtEditText"
+                android:id="@+id/alamatEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress">
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -125,18 +119,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Perkiraan Budget"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/budgetEditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="360dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
@@ -146,9 +138,32 @@
                 android:id="@+id/budgetEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress">
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Photo"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+        <ImageView
+            android:layout_width="324dp"
+            android:layout_height="150dp"
+            android:foregroundTint="#D9D9D9"
+            android:src="@drawable/baseline_add_photo_alternate_24"
+            android:layout_gravity="center"/>
 
+    </LinearLayout>
+    <Button
+        android:layout_width="283dp"
+        android:layout_height="50dp"
+        android:text="Tambah"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="15sp"
+        android:backgroundTint="#171F1D"
+        app:cornerRadius="10dp"
+        android:layout_gravity="center"/>
+</LinearLayout>
