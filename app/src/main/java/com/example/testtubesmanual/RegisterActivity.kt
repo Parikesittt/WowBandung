@@ -10,16 +10,34 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.lifecycleScope
 import com.example.testtubesmanual.databinding.ActivityRegisterBinding
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import com.google.firebase.Firebase
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding:ActivityRegisterBinding
+    private lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +48,7 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        auth = Firebase.auth
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_button)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -53,9 +72,81 @@ class RegisterActivity : AppCompatActivity() {
         ss.setSpan(boldSpan, 18, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
-        val textView = findViewById<TextView>(R.id.haveAccount)
+        val textView = binding.haveAccount
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
+        binding.google.setOnClickListener{
+            signIn()
+        }
+    }
+
+    private fun signIn() {
+        val credentialManager = CredentialManager.create(this)
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false)
+            .setServerClientId(getString(R.string.web_client_id))
+            .build()
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        lifecycleScope.launch {
+            try {
+                val result:GetCredentialResponse = credentialManager.getCredential(
+                    request = request,
+                    context = this@RegisterActivity
+                )
+                handleSignIn(result)
+            }catch (e:GetCredentialException){
+                Log.d("Error", e.message.toString())
+            }
+        }
+    }
+
+    private fun handleSignIn(result:GetCredentialResponse){
+        when(val credential = result.credential){
+            is CustomCredential -> {
+                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL){
+                    try {
+                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                        firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
+                    }catch (e:GoogleIdTokenParsingException){
+                        Log.e(TAG,"Received an invalid google id token response", e)
+                    }
+                }else{
+                    Log.e(TAG,"Unexpected type of credential")
+                }
+            }
+            else -> {
+                Log.e(TAG,"Unexpected type of credential")
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken:String){
+        val credential:AuthCredential = GoogleAuthProvider.getCredential(idToken,null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful){
+                    Log.d(TAG,"signInWithCredential:success")
+                    val user:FirebaseUser? = auth.currentUser
+                    updateUI(user)
+                }else{
+                    Log.w(TAG,"signInWithCredential:failure", task.exception)
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun updateUI(currentUser:FirebaseUser?){
+        if (currentUser!=null){
+            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+            finish()
+        }
+    }
+
+    companion object{
+        const val TAG = "LoginActivity"
     }
 }

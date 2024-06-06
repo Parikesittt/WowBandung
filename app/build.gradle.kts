@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
@@ -46,10 +47,14 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.maps)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 //    implementation ("com.android.support:appcompat-v7:28.0.0-alpha3")
 //    implementation ("com.android.support:design:28.0.0-alpha3")
     implementation("com.google.android.gms:play-services-maps")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("androidx.credentials:credentials-e2ee:1.0.0-alpha02")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
 }
