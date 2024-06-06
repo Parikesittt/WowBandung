@@ -123,6 +123,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/buttonSignUp"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

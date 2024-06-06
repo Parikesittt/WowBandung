@@ -7,73 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="27dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/location_icon"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="Bandung, Indonesia"
-            android:textColor="#007EF2"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:text="Find your happiness with us!"
-        android:fontFamily="@font/nunito_semibold"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="65dp"
-        android:layout_marginStart="22dp"/>
-    
-    <com.google.android.material.search.SearchBar
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Cari destinasi tujuan anda"/>
-
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="180dp"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
-        android:layout_marginLeft="115dp"
-        android:elevation="2dp"
+        android:layout_marginStart="115dp"
         app:menu="@menu/item_menu"
         app:labelVisibilityMode="unlabeled"
         app:itemRippleColor="@android:color/transparent"
         app:itemIconSize="20dp"
         app:itemIconTint="@drawable/item_selector"
         android:background="@drawable/round_corner"/>
-    
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="196dp"
-        android:layout_marginEnd="22dp"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="223dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="19dp"/>
-
 
 
 </RelativeLayout>

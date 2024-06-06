@@ -10,16 +10,24 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.testtubesmanual.databinding.ActivityLoginBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding:ActivityLoginBinding
+    private lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        auth = Firebase.auth
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_button)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -57,5 +66,56 @@ class LoginActivity : AppCompatActivity() {
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
+
+        binding.buttonLogin.setOnClickListener {
+            val email = binding.emailEditText.text.toString()
+            val pass = binding.passEditText.text.toString()
+            validatingEmail(email)
+            validatingPassword(pass)
+            LoginFirebase(email,pass)
+        }
+    }
+
+    private fun LoginFirebase(email: String, pass: String) {
+        auth.signInWithEmailAndPassword(email,pass)
+            .addOnCompleteListener(this){
+                if (it.isSuccessful){
+                    Toast.makeText(this,"Login berhasil", Toast.LENGTH_SHORT).show()
+                    val user: FirebaseUser? = auth.currentUser
+                    updateUI(user)
+                }else{
+                    Log.w(RegisterActivity.TAG,"signInWithEmailAndPassword:failure", it.exception)
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun validatingEmail(email:String){
+        if (email.isEmpty()){
+            binding.emailEditText.error = "Email harus diisi"
+            binding.emailEditText.requestFocus()
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.emailEditText.error = "Email tidak valid"
+            binding.emailEditText.requestFocus()
+        }
+    }
+
+    private fun validatingPassword(pass:String){
+        if (pass.isEmpty()){
+            binding.passEditText.error = "Password tidak boleh kosong"
+            binding.passEditText.requestFocus()
+        }
+        if (pass.length < 8){
+            binding.passEditText.error = "Password kurang dari 8 karakter"
+            binding.passEditText.requestFocus()
+        }
+    }
+
+    private fun updateUI(currentUser:FirebaseUser?){
+        if (currentUser!=null){
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
+        }
     }
 }

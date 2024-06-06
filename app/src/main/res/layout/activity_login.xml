@@ -119,6 +119,7 @@
 
 
     <Button
+        android:id="@+id/buttonLogin"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

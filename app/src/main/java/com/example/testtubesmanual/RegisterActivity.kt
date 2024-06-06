@@ -11,8 +11,10 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -34,6 +36,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
+import com.google.firebase.auth.FacebookAuthCredential
+import com.google.firebase.auth.FacebookAuthProvider
+
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding:ActivityRegisterBinding
@@ -78,6 +83,50 @@ class RegisterActivity : AppCompatActivity() {
         textView.highlightColor = Color.TRANSPARENT
         binding.google.setOnClickListener{
             signIn()
+        }
+        binding.buttonSignUp.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+            val pass = binding.passEditText.text.toString()
+            validatingEmail(email)
+            validatingPassword(pass)
+            registerFirebase(email,pass)
+        }
+    }
+
+    private fun registerFirebase(email: String,pass: String){
+        auth.createUserWithEmailAndPassword(email,pass)
+            .addOnCompleteListener(this){
+                if (it.isSuccessful){
+                    Toast.makeText(this,"Registrasi berhasil", Toast.LENGTH_SHORT).show()
+                    val user:FirebaseUser? = auth.currentUser
+                    updateUI(user)
+                }else{
+                    Log.w(TAG,"signInWithEmailAndPassword:failure", it.exception)
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun validatingEmail(email:String){
+        if (email.isEmpty()){
+            binding.emailEditText.error = "Email harus diisi"
+            binding.emailEditText.requestFocus()
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.emailEditText.error = "Email tidak valid"
+            binding.emailEditText.requestFocus()
+        }
+    }
+
+    private fun validatingPassword(pass:String){
+        if (pass.isEmpty()){
+            binding.passEditText.error = "Password tidak boleh kosong"
+            binding.passEditText.requestFocus()
+        }
+        if (pass.length < 8){
+            binding.passEditText.error = "Password kurang dari 8 karakter"
+            binding.passEditText.requestFocus()
         }
     }
 
