@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background2"
-    tools:context=".ProfileUserFragment">
+    tools:context=".AdminProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:id="@+id/appbarItem"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Profile"
+                app:title="Admin"
                 app:titleCentered="true"
                 app:titleTextColor="#FFFFFF" />
         </androidx.appcompat.widget.Toolbar>
@@ -65,6 +65,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addWisataButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Tambah"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="start|center_vertical"
+                android:textSize="14sp"
+                android:backgroundTint="#D9D9D9"
+                android:drawableLeft="@drawable/baseline_add_24"
+                app:cornerRadius="0dp"
+                android:textColor="@color/black"
+                app:iconTint="@color/black"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:id="@+id/deleteWisataButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Hapus"
+                android:gravity="start|center_vertical"
+                android:textSize="14sp"
+                android:backgroundTint="#D9D9D9"
+                app:cornerRadius="0dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_semibold"
+                android:drawableLeft="@drawable/delete"
+                app:iconTint="@color/black"/>
+            <Button
+                android:id="@+id/editWisataButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Edit"
+                android:gravity="start|center_vertical"
+                android:textSize="14sp"
+                android:backgroundTint="#D9D9D9"
+                app:cornerRadius="0dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_semibold"
+                android:drawableLeft="@drawable/edit"
+                app:iconTint="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,7 +157,7 @@
             android:backgroundTint="#171F1D"
             app:cornerRadius="5dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="180dp"/>
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 
 </FrameLayout>

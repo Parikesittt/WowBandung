@@ -7,15 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.testtubesmanual.adapter.FavWisataAdapter
 import com.example.testtubesmanual.adapter.WisataAdapter
-import com.example.testtubesmanual.data.fav
 import com.example.testtubesmanual.data.listWisata
-import com.example.testtubesmanual.databinding.ActivityFavoriteBinding
-import com.example.testtubesmanual.databinding.FragmentFavoriteBinding
+import com.example.testtubesmanual.databinding.FragmentAllWisataBinding
+import com.example.testtubesmanual.databinding.FragmentWisataAlamBinding
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -29,32 +25,26 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
+ * Use the [WisataAlamFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FavoriteFragment : Fragment() {
-    private var _binding: FragmentFavoriteBinding?=null
+class WisataAlamFragment : Fragment() {
+    private var _binding: FragmentWisataAlamBinding?= null
     private val binding get() = _binding
-    private lateinit var destinationList : ArrayList<listWisata>
-    private lateinit var favList : ArrayList<fav>
-    private lateinit var rvAdapter: WisataAdapter
-    private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
+    private lateinit var destinationList : ArrayList<listWisata>
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        destinationList = arrayListOf()
-        favList = arrayListOf()
-        auth = Firebase.auth
         db = Firebase.database
-        rvAdapter = WisataAdapter(destinationList)
+        destinationList = arrayListOf()
         fetchData()
-        binding?.rvFav?.apply {
+        binding?.rvWisataAlam?.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(requireActivity(),2)
+            layoutManager = GridLayoutManager(requireContext(),2)
         }
     }
 
@@ -62,21 +52,31 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFavoriteBinding.inflate(inflater,container,false)
+        _binding = FragmentWisataAlamBinding.inflate(inflater,container,false)
         return binding?.root
     }
-    private fun fetchData(){
-        val dbUsers = db.getReference("Users")
-        val dbWisata = db.getReference("wisata")
-        dbUsers.child(auth.currentUser?.uid.toString()).child("Favorites")
-            .addValueEventListener(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
 
+    private fun fetchData(){
+        val ref = db.getReference("wisata")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                destinationList.clear()
+                if (snapshot.exists()){
+                    for (destinationSnap in snapshot.children){
+                        val destination = destinationSnap.getValue(listWisata::class.java)
+                        if (destination != null && destination.kategori == "alam") {
+                            destinationList.add(destination)
+                        }
+                    }
                 }
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
-                }
-            })
+                val rvAdapter = WisataAdapter(destinationList)
+                binding?.rvWisataAlam?.adapter = rvAdapter
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     companion object {
@@ -86,12 +86,12 @@ class FavoriteFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
+         * @return A new instance of fragment WisataAlamFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
+            WisataAlamFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

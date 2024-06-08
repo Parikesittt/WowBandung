@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.googleGmsGoogleServices)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -35,6 +36,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures{
+        buildConfig = true
         viewBinding = true
     }
 }
@@ -48,9 +50,12 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.maps)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 //    implementation ("com.android.support:appcompat-v7:28.0.0-alpha3")
 //    implementation ("com.android.support:design:28.0.0-alpha3")
     implementation("com.google.android.gms:play-services-maps")

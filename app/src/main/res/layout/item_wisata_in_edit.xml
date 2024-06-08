@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
-                android:id="@+id/ivProfile"
+                android:id="@+id/ivWisata"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -42,6 +42,7 @@
                     android:layout_marginStart="7dp"
                     android:layout_marginTop="4dp"/>
                 <TextView
+                    android:id="@+id/tvRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4.5"
@@ -56,6 +57,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/tvNama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nama tempat"
@@ -76,6 +78,7 @@
                 android:src="@drawable/location_icon"
                 android:layout_marginTop="7.5dp"/>
             <TextView
+                android:id="@+id/tvalamat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="alamat tempat"
@@ -92,6 +95,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp">
             <TextView
+                android:id="@+id/tvHarga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Harga"

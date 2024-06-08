@@ -1,5 +1,6 @@
 package com.example.testtubesmanual
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -37,11 +38,18 @@ import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 import com.google.firebase.auth.FacebookAuthCredential
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding:ActivityRegisterBinding
     private lateinit var auth:FirebaseAuth
+    private lateinit var store: FirebaseFirestore
+    private lateinit var db:FirebaseDatabase
+    private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -53,6 +61,11 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
         auth = Firebase.auth
+        store = Firebase.firestore
+        db = Firebase.database
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setCanceledOnTouchOutside(false)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_button)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -84,7 +97,6 @@ class RegisterActivity : AppCompatActivity() {
             signIn()
         }
         binding.buttonSignUp.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val pass = binding.passEditText.text.toString()
             validatingEmail(email)
@@ -94,17 +106,45 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerFirebase(email: String,pass: String){
+        progressDialog.setMessage("Creating account...")
+        progressDialog.show()
         auth.createUserWithEmailAndPassword(email,pass)
             .addOnCompleteListener(this){
                 if (it.isSuccessful){
                     Toast.makeText(this,"Registrasi berhasil", Toast.LENGTH_SHORT).show()
-                    val user:FirebaseUser? = auth.currentUser
-                    updateUI(user)
+                    updateUserInfo()
                 }else{
                     Log.w(TAG,"signInWithEmailAndPassword:failure", it.exception)
                     updateUI(null)
                 }
             }
+    }
+
+    private fun updateUserInfo(){
+        progressDialog.setMessage("Saving user info...")
+        val user:FirebaseUser? = auth.currentUser
+        val name = binding.nameEditText.text.toString()
+        val email = binding.emailEditText.text.toString()
+        val uid = auth.currentUser?.uid
+        val ref = db.getReference("Users")
+        val userData = hashMapOf(
+            "nama" to name,
+            "email" to email,
+            "profileImage" to "",
+            "isAdmin" to "0"
+        )
+        ref.child(uid.toString())
+            .setValue(userData)
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(this,"Account created...",Toast.LENGTH_SHORT).show()
+                updateUI(user)
+            }
+            .addOnFailureListener{ e->
+                progressDialog.dismiss()
+                Toast.makeText(this,"Failed to save user info due to ${e.message}",Toast.LENGTH_SHORT).show()
+            }
+
     }
 
     private fun validatingEmail(email:String){
@@ -189,7 +229,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUI(currentUser:FirebaseUser?){
         if (currentUser!=null){
-            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
             finish()
         }
     }

@@ -1,5 +1,6 @@
 package com.example.testtubesmanual
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,14 +21,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.testtubesmanual.databinding.ActivityLoginBinding
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding:ActivityLoginBinding
     private lateinit var auth:FirebaseAuth
+    private lateinit var store:FirebaseFirestore
+    private lateinit var db:FirebaseDatabase
+    private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,6 +52,11 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         auth = Firebase.auth
+        store = Firebase.firestore
+        db = Firebase.database
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Please wait")
+        progressDialog.setCanceledOnTouchOutside(false)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_button)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -72,22 +90,47 @@ class LoginActivity : AppCompatActivity() {
             val pass = binding.passEditText.text.toString()
             validatingEmail(email)
             validatingPassword(pass)
-            LoginFirebase(email,pass)
+            loginFirebase(email,pass)
         }
     }
 
-    private fun LoginFirebase(email: String, pass: String) {
+    private fun loginFirebase(email: String, pass: String) {
+        progressDialog.setMessage("Logging in...")
+        progressDialog.show()
         auth.signInWithEmailAndPassword(email,pass)
             .addOnCompleteListener(this){
                 if (it.isSuccessful){
                     Toast.makeText(this,"Login berhasil", Toast.LENGTH_SHORT).show()
-                    val user: FirebaseUser? = auth.currentUser
-                    updateUI(user)
+                    checkUserAccess()
                 }else{
+                    progressDialog.dismiss()
                     Log.w(RegisterActivity.TAG,"signInWithEmailAndPassword:failure", it.exception)
-                    updateUI(null)
                 }
             }
+    }
+
+    private fun checkUserAccess() {
+        progressDialog.setMessage("Checking user...")
+        val user:FirebaseUser? = auth.currentUser
+        val dB = db.getReference("Users")
+        dB.child(user?.uid.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    progressDialog.dismiss()
+                    val isAdmin = snapshot.child("isAdmin").value
+                    if (isAdmin == "0"){
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    }
+                    else if (isAdmin == "1"){
+                        startActivity(Intent(this@LoginActivity,AdminMainActivity::class.java))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 
     private fun validatingEmail(email:String){

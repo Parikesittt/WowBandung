@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -27,29 +27,51 @@
             app:titleTextColor="#007EF2"
             app:menu="@menu/menu_detail" />
     </androidx.appcompat.widget.Toolbar>
-    
+
     <ImageView
         android:id="@+id/ivTempat"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_below="@+id/toolbar"
         android:src="@drawable/img_5"/>
 
     <ScrollView
+        android:id="@+id/mainSv"
         android:layout_width="match_parent"
-        android:layout_height="370dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_above="@id/budgetBox"
+        android:layout_below="@+id/ivTempat">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama Tempat"
-                android:fontFamily="@font/roboto"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="12dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Tempat"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"/>
+                <ToggleButton
+                    android:id="@+id/toggleFav"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/toggle_fav"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
@@ -74,7 +96,7 @@
                     android:textColor="#007EF2"/>
 
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,6 +113,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"/>
                 <TextView
+                    android:id="@+id/tvDesc"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:textSize="10sp"
@@ -106,19 +129,20 @@
                     android:textSize="16sp"/>
 
                 <com.google.android.gms.maps.MapView
-                    android:id="@+id/mapView"
+                    android:id="@+id/maps"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="300dp"/>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/budgetBox"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
         android:background="#007EF2"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -133,7 +157,7 @@
             android:layout_marginStart="18dp"/>
 
         <TextView
-            android:id="@+id/budget"
+            android:id="@+id/tvHarga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gratis"
@@ -145,4 +169,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

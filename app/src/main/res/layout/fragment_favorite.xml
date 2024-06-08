@@ -6,10 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FavoriteFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -30,12 +26,12 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="65dp"
             android:layout_marginStart="19dp"
             android:layout_marginEnd="19dp"/>
 
-    </LinearLayout>
 
 </FrameLayout>
