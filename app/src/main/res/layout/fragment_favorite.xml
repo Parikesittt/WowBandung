@@ -22,7 +22,8 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="Favorit"
                 app:titleCentered="true"
-                app:titleTextColor="#007EF2" />
+                app:titleTextColor="#007EF2"
+                app:menu="@menu/menu_favorite"/>
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
