@@ -56,10 +56,10 @@ class MainActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
-        replaceFragment(HomeFragment())
+        replaceFragment(MainFragment())
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.home -> replaceFragment(HomeFragment())
+                R.id.home -> replaceFragment(MainFragment())
                 R.id.fav -> replaceFragment(FavoriteFragment())
                 R.id.profile -> replaceFragment(ProfileUserFragment())
                 else -> {}

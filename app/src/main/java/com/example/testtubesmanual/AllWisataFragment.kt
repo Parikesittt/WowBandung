@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testtubesmanual.adapter.WisataAdapter
 import com.example.testtubesmanual.data.listWisata
@@ -36,6 +38,7 @@ class AllWisataFragment : Fragment() {
     private lateinit var db: FirebaseDatabase
     private lateinit var destinationList : ArrayList<listWisata>
     private lateinit var adapter: WisataAdapter
+    private lateinit var searchViewModel: SearchViewModel
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,12 +46,17 @@ class AllWisataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = Firebase.database
+        searchViewModel = ViewModelProvider(requireActivity(),ViewModelProvider.NewInstanceFactory()).get(SearchViewModel::class.java)
         destinationList = arrayListOf()
         adapter = WisataAdapter(destinationList)
         fetchData()
         binding?.rvAllWisata?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(),2)
+        }
+        searchViewModel.getQuery().observe(viewLifecycleOwner){
+            if (it != null)
+                adapter.filter.filter(it)
         }
         adapter.setOnItemClickCallback(object : WisataAdapter.OnItemClickCallback{
             override fun onItemClicked(data: listWisata) {
@@ -102,6 +110,16 @@ class AllWisataFragment : Fragment() {
             it.putExtra(DetailActivity.DATA,bundle)
             startActivity(it)
         }
+    }
+
+    fun searchList(text:String){
+        val searchList = ArrayList<listWisata>()
+        for (destinationClass in destinationList){
+            if (destinationClass.namalokasi.lowercase().contains(text)){
+                searchList.add(destinationClass)
+            }
+        }
+        adapter.searchDataList(searchList)
     }
 
     companion object {

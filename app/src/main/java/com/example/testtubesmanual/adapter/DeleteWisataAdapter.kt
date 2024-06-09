@@ -7,32 +7,23 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testtubesmanual.data.listWisata
+import com.example.testtubesmanual.databinding.ItemWisataBinding
 import com.example.testtubesmanual.databinding.ItemWisataInRemoveBinding
 
-class DeleteWisataAdapter: ListAdapter<listWisata, DeleteWisataAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class DeleteWisataAdapter(private val destinationList: ArrayList<listWisata>):RecyclerView.Adapter<DeleteWisataAdapter.MyViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
-    inner class MyViewHolder(val binding: ItemWisataInRemoveBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(val binding: ItemWisataInRemoveBinding):RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener{
-                val position =adapterPosition
+            binding.root.setOnClickListener {
+                val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION){
-                    onItemClickCallback?.onItemClicked(getItem(position))
+                    onItemClickCallback?.onItemClicked(destinationList[position])
                 }
-            }
-        }
-        fun bind(wisata: listWisata){
-            binding.apply {
-                Glide.with(itemView)
-                    .load(wisata.photo)
-                    .into(ivWisata)
-                tvNama.text = wisata.namalokasi
-                tvAlamat.text = wisata.alamat
-                tvHarga.text = wisata.harga
             }
         }
     }
@@ -42,25 +33,26 @@ class DeleteWisataAdapter: ListAdapter<listWisata, DeleteWisataAdapter.MyViewHol
         return MyViewHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return destinationList.size
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val currentItem = destinationList[position]
+        holder.apply {
+            binding.apply {
+                Glide.with(itemView)
+                    .load(currentItem.photo)
+                    .centerCrop()
+                    .into(ivWisata)
+                tvNama.text = currentItem.namalokasi
+                tvAlamat.text = currentItem.alamat
+                tvHarga.text = currentItem.harga
+            }
+        }
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: listWisata)
-    }
-
-    companion object{
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<listWisata>(){
-            override fun areItemsTheSame(oldItem: listWisata, newItem: listWisata): Boolean {
-                return oldItem.namalokasi == newItem.namalokasi
-            }
-
-            override fun areContentsTheSame(oldItem: listWisata, newItem: listWisata): Boolean {
-                return oldItem == newItem
-            }
-
-        }
+        fun onItemClicked(data:listWisata)
     }
 }

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,31 +41,42 @@
 
         <SearchView
             android:id="@+id/searchBar"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="53dp"
             android:layout_marginTop="135dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:queryHint="Cari destinasi tujuan anda"
+            android:queryHint="Cari tujuan anda"
             android:iconifiedByDefault="false"
             android:background="@drawable/search_view_bg"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="19dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="196dp"
-            android:layout_marginEnd="22dp"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/filterBtn"
+            android:layout_width="57dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="23dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="10dp"
+            android:backgroundTint="#007EF2"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/rvWisata">
+            <ImageView
+                android:id="@+id/filter_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:tint="@color/white"
+                android:src="@drawable/baseline_filter_list_24"/>
+        </androidx.cardview.widget.CardView>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerWisata"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWisata"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="223dp"
+            android:layout_below="@+id/searchBar"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="19dp"
             android:layout_marginEnd="19dp"/>
     </RelativeLayout>
-
 
 </FrameLayout>

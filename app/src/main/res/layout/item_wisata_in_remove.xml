@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="match_parent"
     android:layout_height="190dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -105,13 +105,15 @@
                 android:textStyle="bold"
                 android:textColor="#007EF2"
                 tools:ignore="SmallSp" />
+
             <ToggleButton
+                android:id="@+id/btnRemove"
                 android:layout_width="15dp"
                 android:layout_height="16dp"
-                android:background="@drawable/delete"
-                android:textOff=""
                 android:layout_marginStart="87dp"
-                android:backgroundTint="#007EF2"/>
+                android:background="@drawable/delete"
+                android:backgroundTint="#007EF2"
+                android:textOff="" />
         </LinearLayout>
 
     </LinearLayout>

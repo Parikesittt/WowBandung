@@ -2,6 +2,8 @@ package com.example.testtubesmanual.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.testtubesmanual.data.listWisata
 import com.example.testtubesmanual.databinding.ItemWisataBinding
 
-class WisataAdapter(private val destinationList: ArrayList<listWisata>):RecyclerView.Adapter<WisataAdapter.MyViewHolder>() {
+class WisataAdapter(private var destinationList: ArrayList<listWisata>):RecyclerView.Adapter<WisataAdapter.MyViewHolder>(), Filterable {
 
     private var onItemClickCallback: OnItemClickCallback? = null
+
+    var destinationListFiltered : ArrayList<listWisata> = ArrayList()
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
@@ -37,6 +41,11 @@ class WisataAdapter(private val destinationList: ArrayList<listWisata>):Recycler
         return destinationList.size
     }
 
+    fun searchDataList(searchList:ArrayList<listWisata>){
+        destinationList = searchList
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = destinationList[position]
         holder.apply {
@@ -54,5 +63,35 @@ class WisataAdapter(private val destinationList: ArrayList<listWisata>):Recycler
 
     interface OnItemClickCallback{
         fun onItemClicked(data:listWisata)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString() ?: ""
+                if (charString.isEmpty()) destinationListFiltered = destinationList else {
+                    val filteredList = ArrayList<listWisata>()
+                    destinationList
+                        .filter {
+                            (it.namalokasi.contains(constraint!!)) or
+                                    (it.alamat.contains(constraint))
+
+                        }
+                        .forEach { filteredList.add(it) }
+                    destinationListFiltered = filteredList
+
+                }
+                return FilterResults().apply { values = destinationListFiltered }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+
+                destinationListFiltered = if (results?.values == null)
+                    ArrayList()
+                else
+                    results.values as ArrayList<listWisata>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

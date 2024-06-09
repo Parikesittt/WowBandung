@@ -27,10 +27,10 @@ class AdminMainActivity : AppCompatActivity() {
             insets
         }
         auth = Firebase.auth
-        replaceFragment(HomeFragment())
+        replaceFragment(MainFragment())
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.home -> replaceFragment(HomeFragment())
+                R.id.home -> replaceFragment(MainFragment())
                 R.id.fav -> replaceFragment(FavoriteFragment())
                 R.id.profile -> replaceFragment(AdminProfileFragment())
                 else -> {}

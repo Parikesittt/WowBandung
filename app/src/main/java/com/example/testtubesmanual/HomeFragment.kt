@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -39,12 +42,27 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding?= null
     private val binding get() = _binding
+    private lateinit var searchViewModel:SearchViewModel
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        searchViewModel = ViewModelProvider(requireActivity(),ViewModelProvider.NewInstanceFactory()).get(SearchViewModel::class.java)
+        val fragment = fragmentManager?.findFragmentById(R.id.fragment_allwisata) as? AllWisataFragment
+        val searchView = binding?.searchBar
+        searchView?.setOnQueryTextListener(object : OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchViewModel.setQuery(newText.toString())
+                return true
+            }
+
+        })
         val sectionPagerAdapter = SectionPagerAdapter(this)
         val viewPager:ViewPager2 = view.findViewById(R.id.viewPagerWisata)
         viewPager.adapter = sectionPagerAdapter
@@ -62,6 +80,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding?.root
     }
+
 
 
     companion object {

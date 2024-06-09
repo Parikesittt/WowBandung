@@ -48,7 +48,7 @@ class AdminProfileFragment : Fragment() {
             startActivity(Intent(requireActivity(),RemoveActivity::class.java))
         }
         binding?.editWisataButton?.setOnClickListener {
-            startActivity(Intent(requireActivity(),EditWisataActivity::class.java))
+            startActivity(Intent(requireActivity(),EditActivity::class.java))
         }
     }
 
