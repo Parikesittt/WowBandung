@@ -6,15 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testtubesmanual.adapter.WisataAdapter
 import com.example.testtubesmanual.data.listWisata
-import com.example.testtubesmanual.databinding.FragmentHomeBinding
 import com.example.testtubesmanual.databinding.FragmentMainBinding
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot

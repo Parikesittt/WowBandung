@@ -9,11 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.testtubesmanual.adapter.FavWisataAdapter
 import com.example.testtubesmanual.adapter.WisataAdapter
-import com.example.testtubesmanual.data.fav
 import com.example.testtubesmanual.data.listWisata
-import com.example.testtubesmanual.databinding.ActivityFavoriteBinding
 import com.example.testtubesmanual.databinding.FragmentFavoriteBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth

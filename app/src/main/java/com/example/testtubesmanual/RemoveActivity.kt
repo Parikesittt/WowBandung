@@ -9,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.testtubesmanual.adapter.DeleteWisataAdapter
 import com.example.testtubesmanual.adapter.WisataAdapter
 import com.example.testtubesmanual.data.listWisata
-import com.example.testtubesmanual.databinding.ActivityAddWisataBinding
 import com.example.testtubesmanual.databinding.ActivityRemoveBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
