@@ -1,11 +1,13 @@
 package com.example.testtubesmanual
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testtubesmanual.adapter.FavWisataAdapter
 import com.example.testtubesmanual.adapter.WisataAdapter
@@ -22,40 +24,53 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding?=null
     private val binding get() = _binding
-    private lateinit var destinationList : ArrayList<listWisata>
-    private lateinit var favList : ArrayList<fav>
+    private lateinit var favoriteList : ArrayList<listWisata>
     private lateinit var rvAdapter: WisataAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    var selectedItemIndex = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        destinationList = arrayListOf()
-        favList = arrayListOf()
+        favoriteList = arrayListOf()
         auth = Firebase.auth
         db = Firebase.database
-        rvAdapter = WisataAdapter(destinationList)
+        rvAdapter = WisataAdapter(favoriteList)
         fetchData()
         binding?.rvFav?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireActivity(),2)
         }
+        binding?.appbarItem?.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.filter -> {
+                    filterDialog()
+                    true
+                }
+                else -> false
+            }
+        }
+        rvAdapter.setOnItemClickCallback(object : WisataAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: listWisata) {
+                val bundle = Bundle().apply {
+                    putString("name", data.namalokasi)
+                    putString("desc",data.deskripsi)
+                    putString("photoUrl",data.photo)
+                    putString("harga",data.harga)
+                    putString("kategori", data.kategori)
+                    putDouble("lat",data.lat)
+                    putDouble("lng",data.lng)
+                }
+                Intent(requireActivity(), DetailActivity::class.java).also {
+                    it.putExtra(DetailActivity.DATA, bundle)
+                    startActivity(it)
+                }
+            }
+
+        })
     }
 
     override fun onCreateView(
@@ -67,35 +82,114 @@ class FavoriteFragment : Fragment() {
     }
     private fun fetchData(){
         val dbUsers = db.getReference("Users")
-        val dbWisata = db.getReference("wisata")
         dbUsers.child(auth.currentUser?.uid.toString()).child("Favorites")
             .addValueEventListener(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
+                    favoriteList.clear()
+                    if (snapshot.exists()){
+                        for (favoriteSnap in snapshot.children){
+                            val favorite = favoriteSnap.getValue(listWisata::class.java)
+                            if (favorite != null){
+                                favoriteList.add(favorite)
+                            }
+                        }
+                    }
+                    binding?.rvFav?.adapter = rvAdapter
                 }
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
                 }
             })
     }
+    private fun filterDialog(){
+        val category = arrayOf("All", "Alam", "Wisata Kuliner", "Pusat Perbelanjaan")
+        var selectedCategory = category[selectedItemIndex]
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        AlertDialog.Builder(requireContext())
+            .setTitle("Pilih kategori")
+            .setSingleChoiceItems(category, selectedItemIndex) {dialog, which ->
+                selectedItemIndex = which
+                selectedCategory = category[which]
+            }
+            .setPositiveButton("OK") {dialog, which ->
+                if (selectedCategory == "Alam"){
+                    filterAlam()
+                }
+                else if (selectedCategory == "Wisata Kuliner"){
+                    filterWisata()
+                }
+                else if (selectedCategory == "Pusat Perbelanjaan"){
+                    filterShop()
+                }
+                else{
+                    fetchData()
                 }
             }
+            .show()
+    }
+    private fun filterAlam(){
+        val ref = db.getReference("Users").child(auth.currentUser?.uid.toString()).child("Favorite")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                favoriteList.clear()
+                if (snapshot.exists()){
+                    for (favoriteSnap in snapshot.children){
+                        val favorite = favoriteSnap.getValue(listWisata::class.java)
+                        if (favorite != null && favorite.kategori == "Alam") {
+                            favoriteList.add(favorite)
+                        }
+                    }
+                }
+                binding?.rvFav?.adapter = rvAdapter
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun filterWisata(){
+        val ref = db.getReference("Users").child(auth.currentUser?.uid.toString()).child("Favorite")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                favoriteList.clear()
+                if (snapshot.exists()){
+                    for (favoriteSnap in snapshot.children){
+                        val favorite = favoriteSnap.getValue(listWisata::class.java)
+                        if (favorite != null && favorite.kategori == "Wisata Kuliner") {
+                            favoriteList.add(favorite)
+                        }
+                    }
+                }
+                binding?.rvFav?.adapter = rvAdapter
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun filterShop(){
+        val ref = db.getReference("Users").child(auth.currentUser?.uid.toString()).child("Favorite")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                favoriteList.clear()
+                if (snapshot.exists()){
+                    for (favoriteSnap in snapshot.children){
+                        val favorite = favoriteSnap.getValue(listWisata::class.java)
+                        if (favorite != null && favorite.kategori == "Pusat Perbelanjaan") {
+                            favoriteList.add(favorite)
+                        }
+                    }
+                }
+                binding?.rvFav?.adapter = rvAdapter
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context,"Error : $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 }

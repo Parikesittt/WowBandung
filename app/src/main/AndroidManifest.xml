@@ -67,7 +67,9 @@
             android:exported="false">
         </activity>
 
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD_zXqE8d8Rv4LmpZQRJEAjNNZZFrYcldE" />
 
         <meta-data
             android:name="preloaded_fonts"

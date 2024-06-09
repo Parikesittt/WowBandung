@@ -28,12 +28,16 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
-class DetailActivity : AppCompatActivity(){
+class DetailActivity : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var binding:ActivityDetailBinding
+    private lateinit var mMap: GoogleMap
     private lateinit var namaTempat:String
     private lateinit var desc : String
     private lateinit var photoUrl : String
     private lateinit var harga : String
+    private lateinit var kategori:String
+    private var lat:Double?=null
+    private var lng:Double?=null
     private lateinit var db:FirebaseDatabase
     private lateinit var auth:FirebaseAuth
     private var isFav:Boolean = false
@@ -49,12 +53,16 @@ class DetailActivity : AppCompatActivity(){
         }
         auth = Firebase.auth
         db = Firebase.database
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
         val bundle = intent.getBundleExtra(DATA)
         namaTempat = bundle?.getString("name").toString()
         desc = bundle?.getString("desc").toString()
         photoUrl = bundle?.getString("photoUrl").toString()
         harga = bundle?.getString("harga").toString()
-
+        kategori = bundle?.getString("kategori").toString()
+        lat = bundle?.getDouble("lat")
+        lng = bundle?.getDouble("lng")
         if (bundle != null){
             binding.apply {
                 Glide.with(this@DetailActivity)
@@ -82,11 +90,13 @@ class DetailActivity : AppCompatActivity(){
     private fun addFavorite(){
         Log.d(TAG, "addFavorite: Adding to fav")
         val currentUser = auth.currentUser
-        val timestamp = System.currentTimeMillis()
 
         val favPlace = hashMapOf(
-            "nama" to namaTempat,
-            "timestamp" to timestamp
+            "namalokas" to namaTempat,
+            "photo" to photoUrl,
+            "deskripsi" to desc,
+            "budget" to harga,
+            "kategori" to kategori
         )
 
         val ref = db.getReference("Users")
@@ -135,5 +145,26 @@ class DetailActivity : AppCompatActivity(){
 
     companion object{
         const val DATA = "data"
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        val dataMap = hashMapOf(
+            "lat" to lat,
+            "lng" to lng
+        )
+        mMap =googleMap
+        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isIndoorLevelPickerEnabled = true
+        mMap.uiSettings.isCompassEnabled = true
+        mMap.uiSettings.isMapToolbarEnabled = true
+        val dataLat = dataMap.get("lat").toString()
+        val dataLng = dataMap.get("lng").toString()
+        val lokasi = LatLng(dataLat.toDouble(),dataLng.toDouble())
+        mMap.addMarker(
+            MarkerOptions()
+                .position(lokasi)
+                .title(namaTempat)
+        )
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,15f))
     }
 }
