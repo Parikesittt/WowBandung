@@ -8,197 +8,279 @@
     android:orientation="vertical"
     tools:context=".AddWisataActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:elevation="4dp"
+        android:popupTheme="@style/Theme.AppCompat.DayNight"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appbarItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Tambah"
+            app:titleCentered="true"
+            app:titleTextColor="#007EF2" />
+    </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        android:layout_above="@id/addButton">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:elevation="4dp"
-            android:popupTheme="@style/Theme.AppCompat.DayNight"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/appbarItem"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:title="Tambah"
-                app:titleCentered="true"
-                app:titleTextColor="#007EF2" />
-        </androidx.appcompat.widget.Toolbar>
+                android:layout_height="583dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="583dp"
-            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/judul"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Judul"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/judul"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Judul"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/judulEditText"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/judulText"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/judulEditText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="360dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/judulText"
+                <TextView
+                    android:id="@+id/deskripsi"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Dekripsi"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/DeskripsiEditText"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="360dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/DeskripsiText"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/alamat"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Alamat"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/alamatEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/alamatEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/kategori"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Kategori"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/kategoriEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/kategoriEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/budget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="28dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Perkiraan Budget"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/deskripsi"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Dekripsi"
-                android:textSize="14sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/DeskripsiEditText"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="360dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/DeskripsiText"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/alamat"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Alamat"
-                android:textSize="14sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/alamatEditTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="360dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/alamatEditText"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/budgetEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="360dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
 
-            <TextView
-                android:id="@+id/kategori"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Kategori"
-                android:textSize="14sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/budgetEditText"
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/kategoriEditTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="360dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/kategoriEditText"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lat"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="14sp"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/latEditTextLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="165dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusTopStart="12dp">
 
-            <TextView
-                android:id="@+id/budget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Perkiraan Budget"
-                android:textSize="14sp" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/latEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:inputType="text"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lng"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="14sp"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/lngEditTextLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="165dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusTopStart="12dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/lngEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:inputType="text"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/budgetEditTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="360dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/budgetEditText"
-                    android:layout_width="match_parent"
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Add Photo"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"/>
+                <ImageView
+                    android:id="@+id/previewImage"
+                    android:layout_width="324dp"
+                    android:layout_height="150dp"
+                    android:backgroundTint="#D9D9D9"
+                    android:src="@drawable/baseline_add_photo_alternate_24"
+                    android:layout_gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Photo"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
-            <ImageView
-                android:id="@+id/previewImage"
-                android:layout_width="324dp"
-                android:layout_height="150dp"
-                android:backgroundTint="#D9D9D9"
-                android:src="@drawable/baseline_add_photo_alternate_24"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="283dp"
-            android:layout_height="50dp"
-            android:text="Tambah"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="15sp"
-            android:backgroundTint="#171F1D"
-            app:cornerRadius="10dp"
-            android:layout_gravity="center"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="283dp"
+        android:layout_height="50dp"
+        android:text="Tambah"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="15sp"
+        android:backgroundTint="#171F1D"
+        app:cornerRadius="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"/>
 
 
 </RelativeLayout>

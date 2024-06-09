@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
+            android:drawablePadding="5dp"
             android:hint=" Nama"
             android:drawableStart="@drawable/baseline_person_24"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -95,6 +96,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
+            android:drawablePadding="5dp"
             android:hint=" Alamat Email"
             android:drawableStart="@drawable/email_icon"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -118,6 +120,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
+            android:drawablePadding="5dp"
             android:hint=" Kata Sandi"
             android:drawableStart="@drawable/pss_icon"/>
     </com.google.android.material.textfield.TextInputLayout>

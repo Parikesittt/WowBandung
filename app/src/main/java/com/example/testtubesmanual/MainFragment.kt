@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
                     putString("photoUrl",data.photo)
                     putString("harga",data.harga)
                     putString("kategori", data.kategori)
+                    putString("alamat", data.alamat)
                     putDouble("lat",data.lat)
                     putDouble("lng",data.lng)
                 }

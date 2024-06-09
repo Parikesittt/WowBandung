@@ -79,6 +79,8 @@ class AddWisataActivity : AppCompatActivity() {
                             val alamat = binding.alamatEditText.text.toString()
                             val kategori = binding.kategoriEditText.text.toString()
                             val harga = binding.budgetEditText.text.toString()
+                            val lat = binding.latEditText.text.toString().toDouble()
+                            val lng = binding.lngEditText.text.toString().toDouble()
                             val ref = db.getReference("wisata")
                             val dataWisata = hashMapOf(
                                 "alamat" to alamat,
@@ -86,7 +88,9 @@ class AddWisataActivity : AppCompatActivity() {
                                 "harga" to harga,
                                 "kategori" to kategori,
                                 "namalokasi" to nama,
-                                "photo" to imageUri
+                                "photo" to imageUri,
+                                "lat" to lat,
+                                "lng" to lng
                             )
                             ref.child("$nama data")
                                 .setValue(dataWisata)

@@ -36,6 +36,8 @@ class EditWisataActivity : AppCompatActivity() {
     private lateinit var harga : String
     private lateinit var kategoriWisata:String
     private lateinit var alamatWisata:String
+    private lateinit var lat:String
+    private lateinit var lng:String
     private  var currentImageUri:Uri?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,8 @@ class EditWisataActivity : AppCompatActivity() {
         harga = bundle?.getString("harga").toString()
         kategoriWisata = bundle?.getString("kategori").toString()
         alamatWisata = bundle?.getString("alamat").toString()
+        lat = bundle?.getDouble("lat").toString()
+        lng = bundle?.getDouble("lng").toString()
 
         if (bundle != null){
             binding.apply {
@@ -70,11 +74,13 @@ class EditWisataActivity : AppCompatActivity() {
                     .load(photoUrl)
                     .centerCrop()
                     .into(previewImage)
-                judulEditText.hint = namaTempat
+                judulText.setText(namaTempat)
                 DeskripsiEditText.hint = desc
                 budgetEditTextLayout.hint = harga
                 kategoriEditTextLayout.hint = kategoriWisata
                 alamatEditTextLayout.hint = alamatWisata
+                latEditText.setText("$lat")
+                lngEditText.setText("$lng")
             }
         }
         binding.previewImage.setOnClickListener { startGallery() }
@@ -92,12 +98,11 @@ class EditWisataActivity : AppCompatActivity() {
                         storeRef.downloadUrl.addOnSuccessListener { photo ->
                             progressDialog.dismiss()
                             val updatedPhoto = photo.toString()
-                            val updatedNama = binding.judulText.text.toString()
                             val updatedDesc = binding.DeskripsiText.text.toString()
                             val updatedAlamat = binding.alamatEditText.text.toString()
                             val updatedKategori = binding.kategoriEditText.text.toString()
                             val updatedHarga = binding.budgetEditText.text.toString()
-                            setUpdatedData(updatedNama,updatedDesc,updatedHarga,updatedAlamat,updatedKategori,updatedPhoto)
+                            setUpdatedData(namaTempat,updatedDesc,updatedHarga,updatedAlamat,updatedKategori,lat.toDouble(),lng.toDouble(),updatedPhoto)
                             Toast.makeText(this, "Berhasil mengupdate wisata", Toast.LENGTH_SHORT).show()
                         }
                             .addOnFailureListener {
@@ -119,6 +124,8 @@ class EditWisataActivity : AppCompatActivity() {
         harga:String,
         alamat:String,
         kategori:String,
+        lat:Double,
+        lng:Double,
         photo:String
     ){
         progressDialog.setMessage("Updating data wisata...")
@@ -129,6 +136,8 @@ class EditWisataActivity : AppCompatActivity() {
             "deskripsi" to deskripsi,
             "harga" to harga,
             "kategori" to kategori,
+            "lat" to lat,
+            "lng" to lng,
             "namalokasi" to namalokasi,
             "photo" to photo
         )

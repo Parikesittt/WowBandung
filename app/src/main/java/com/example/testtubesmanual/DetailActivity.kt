@@ -36,6 +36,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var photoUrl : String
     private lateinit var harga : String
     private lateinit var kategori:String
+    private lateinit var alamat:String
     private var lat:Double?=null
     private var lng:Double?=null
     private lateinit var db:FirebaseDatabase
@@ -61,6 +62,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback{
         photoUrl = bundle?.getString("photoUrl").toString()
         harga = bundle?.getString("harga").toString()
         kategori = bundle?.getString("kategori").toString()
+        alamat = bundle?.getString("alamat").toString()
         lat = bundle?.getDouble("lat")
         lng = bundle?.getDouble("lng")
         if (bundle != null){
@@ -164,6 +166,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback{
             MarkerOptions()
                 .position(lokasi)
                 .title(namaTempat)
+                .snippet(alamat)
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasi,15f))
     }

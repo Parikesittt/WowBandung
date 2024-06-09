@@ -56,6 +56,8 @@ class EditActivity : AppCompatActivity() {
                     putString("harga",data.harga)
                     putString("alamat",data.alamat)
                     putString("kategori",data.kategori)
+                    putDouble("lat",data.lat)
+                    putDouble("lng",data.lng)
                 }
                 moveToEdit(bundle)
             }
