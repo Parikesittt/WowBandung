@@ -18,6 +18,10 @@
             android:elevation="4dp"
             android:popupTheme="@style/Theme.AppCompat.DayNight"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -117,30 +121,17 @@
                 android:textSize="12sp"
                 android:layout_marginTop="26dp"/>
             <Button
+                android:id="@+id/resetPassword"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Suka"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="start|center_vertical"
-                android:textSize="14sp"
-                android:backgroundTint="#D9D9D9"
-                app:icon="@drawable/favorite"
-                app:cornerRadius="0dp"
-                android:textColor="@color/black"
-                app:iconTint="@color/black"
-                android:layout_marginTop="15dp"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Bahasa"
+                android:text="Reset Password"
                 android:gravity="start|center_vertical"
                 android:textSize="14sp"
                 android:backgroundTint="#D9D9D9"
                 app:cornerRadius="0dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_semibold"
-                app:icon="@drawable/translate"
+                app:icon="@drawable/baseline_lock_24"
                 app:iconTint="@color/black"/>
 
 

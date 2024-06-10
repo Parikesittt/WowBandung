@@ -79,4 +79,11 @@
             android:layout_marginEnd="19dp"/>
     </RelativeLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/progressBar"
+        android:visibility="gone"/>
+
 </FrameLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestTubesManual</string>
+    <string name="app_name">WoW Bandung</string>
     <string name="bandungWow">Bandung Wow</string>
     <string name="tagline">Temukan Wisata Terbaik Anda</string>
     <string name="web_client_id">3335991052-0tm7odhlmml3c6rvb7uahl0a4dfrcss9.apps.googleusercontent.com</string>
@@ -13,4 +13,7 @@
     <string name="tab_title_2">Wisata Alam</string>
     <string name="tab_title_3">Kuliner</string>
     <string name="tab_title_4">Pusat Perbelanjaan</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="preferensi">Preferensi</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -6,15 +6,17 @@ plugins {
 }
 
 android {
-    namespace = "com.example.testtubesmanual"
+    namespace = "com.example.wowbandung"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.testtubesmanual"
+        applicationId = "com.example.wowbandung"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        manifestPlaceholders["googleAPI"] = "AIzaSyD_zXqE8d8Rv4LmpZQRJEAjNNZZFrYcldE"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,6 +55,8 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,4 +67,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("androidx.credentials:credentials-e2ee:1.0.0-alpha02")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 }

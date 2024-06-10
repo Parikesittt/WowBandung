@@ -13,18 +13,24 @@
         android:layout_height="match_parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="180dp"
-        android:layout_height="55dp"
+        android:id="@+id/bottomNavView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="115dp"
-        app:menu="@menu/item_menu"
-        app:labelVisibilityMode="unlabeled"
+        android:background="@drawable/round_corner"
+        android:contentInsetStart="0dp"
+        app:itemActiveIndicatorStyle="@style/Widget.MaterialComponents.NavigationRailView.Colored.Compact"
+        android:contentInsetLeft="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:itemPaddingBottom="0dp"
+        app:menu="@menu/menu_main"
         app:itemRippleColor="@android:color/transparent"
-        app:itemIconSize="20dp"
-        app:itemIconTint="@drawable/item_selector"
-        android:background="@drawable/round_corner"/>
+        app:itemTextColor="@color/white"
+        app:itemTextAppearanceActive="@color/white"
+        app:itemIconTint="@color/white"
+        app:itemTextAppearanceInactive="@android:color/transparent"
+        app:labelVisibilityMode="labeled"/>
 
 
 </RelativeLayout>
