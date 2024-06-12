@@ -15,13 +15,11 @@ import com.example.wowbandung.data.listWisata
 import com.example.wowbandung.databinding.ItemWisataBinding
 import androidx.core.util.Pair
 
-class WisataAdapter(private var destinationList: ArrayList<listWisata>):RecyclerView.Adapter<WisataAdapter.MyViewHolder>() {
+class WisataEditAdapter(private var destinationList: ArrayList<listWisata>):RecyclerView.Adapter<WisataEditAdapter.MyViewHolder>(){
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
-    var destinationListFiltered : ArrayList<listWisata> = ArrayList()
-
-    fun setOnItemClickCallback(onItemClickCallback: WisataAdapter.OnItemClickCallback){
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback
     }
     inner class MyViewHolder(val binding: ItemWisataBinding):RecyclerView.ViewHolder(binding.root) {
@@ -42,27 +40,6 @@ class WisataAdapter(private var destinationList: ArrayList<listWisata>):Recycler
                 tvNama.text = data.namalokasi
                 tvAlamat.text = data.alamat
                 tvHarga.text = data.harga
-                itemView.setOnClickListener{
-                    val bundle = Bundle().apply {
-                        putString("name", data.namalokasi)
-                        putString("desc",data.deskripsi)
-                        putString("photoUrl",data.photo)
-                        putString("harga",data.harga)
-                        putString("kategori", data.kategori)
-                        putString("alamat", data.alamat)
-                        putDouble("lat",data.lat)
-                        putDouble("lng",data.lng)
-                    }
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.DATA, bundle)
-                    val optionsCompat :ActivityOptionsCompat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            itemView.context as Activity,
-                            Pair(ivWisata, "destination"),
-                            Pair(tvNama, "namalokasi")
-                        )
-                    itemView.context.startActivity(intent,optionsCompat.toBundle())
-                }
             }
         }
     }
@@ -76,10 +53,6 @@ class WisataAdapter(private var destinationList: ArrayList<listWisata>):Recycler
         return destinationList.size
     }
 
-    fun searchDataList(searchList:ArrayList<listWisata>){
-        destinationList = searchList
-        notifyDataSetChanged()
-    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val data = destinationList[position]
@@ -91,5 +64,4 @@ class WisataAdapter(private var destinationList: ArrayList<listWisata>):Recycler
     interface OnItemClickCallback{
         fun onItemClicked(data:listWisata)
     }
-
 }

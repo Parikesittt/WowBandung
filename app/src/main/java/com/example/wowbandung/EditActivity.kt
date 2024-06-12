@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wowbandung.adapter.WisataAdapter
+import com.example.wowbandung.adapter.WisataEditAdapter
 import com.example.wowbandung.data.listWisata
 import com.example.wowbandung.databinding.ActivityEditBinding
 import com.google.firebase.Firebase
@@ -25,7 +26,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
-    private lateinit var adapter: WisataAdapter
+    private lateinit var adapter: WisataEditAdapter
     private lateinit var destinationList:ArrayList<listWisata>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +41,14 @@ class EditActivity : AppCompatActivity() {
         auth = Firebase.auth
         db = Firebase.database
         destinationList = arrayListOf()
-        adapter = WisataAdapter(destinationList)
+        adapter = WisataEditAdapter(destinationList)
         showLoading(true)
         fetchData()
         binding.rvEdit.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context,2)
         }
-        adapter.setOnItemClickCallback(object : WisataAdapter.OnItemClickCallback{
+        adapter.setOnItemClickCallback(object : WisataEditAdapter.OnItemClickCallback{
             override fun onItemClicked(data: listWisata) {
                 val bundle = Bundle().apply {
                     putString("name", data.namalokasi)
